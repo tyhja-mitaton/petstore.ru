@@ -30,11 +30,7 @@ return [
                 ],
             ],
         ],
-        'user' => [
-            'identityClass' => 'api\modules\v1\models\User',
-            'enableAutoLogin' => true,
-            'enableSession' => false,
-        ],
+        
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ]
