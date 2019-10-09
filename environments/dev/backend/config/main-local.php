@@ -4,7 +4,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'HE-8amMiO8uKt4RSx5f-KWSjyadXcjwi',
         ],
     ],
 ];

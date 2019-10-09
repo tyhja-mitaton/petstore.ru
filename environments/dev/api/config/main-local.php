@@ -4,34 +4,14 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'H-Ro9pHYgrkwD7suTTgMBydtP0Cp-kS_',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ]
         ],
         //'bootstrap' => ['v1'],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'enableStrictParsing' => true,
-            'showScriptName' => false,
-            'rules' => [
-                [
-                    'class' => \yii\rest\UrlRule::class,
-                    'controller' => ['v1/user'],
-                    'prefix' => 'api',
-                    'extraPatterns' => [
-                        'GET /' => 'test',
-                    ],
-                ],
-            ],
-        ],
-    ],
-    'modules' => [
-        'v1' => [
-            'basePath' => '@app/modules/v1',
-            'class' => api\modules\v1\Module::class,
-        ]
-    ],
+
+    ]
 ];
 
 if (!YII_ENV_TEST) {

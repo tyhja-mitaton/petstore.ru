@@ -30,7 +30,7 @@ return [
                 ],
             ],
         ],
-        
+
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ]
