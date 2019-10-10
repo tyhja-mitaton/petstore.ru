@@ -22,9 +22,4 @@ class AdminController extends Controller
         Yii::$app->authManager->assign($userRole, $identity->id);
     }
 
-    public function actionIndex()
-    {
-        echo "Hello World\n";
-    }
-
 }
