@@ -78,8 +78,8 @@ class UserController extends ActiveController
 
     public function actionLogin($username, $password)
     {
-        $identity = \api\modules\v1\models\User::findOne(['login' => $username, 'password' => $password]);
-        if ($identity)
+        $identity = \api\modules\v1\models\User::findOne(['login' => $username]);
+        if ($identity && Yii::$app->security->validatePassword($password, $identity->password))
         {
             $identity->generateAccessToken();
             Yii::$app->user->login($identity);
