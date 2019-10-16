@@ -46,7 +46,7 @@ return [
                     'controller' => ['v1/user', 'v1/pet', 'v1/category'],
                     'prefix' => 'api',
                     'extraPatterns' => [
-                        'GET login' => 'login',
+                        'POST login' => 'login',
                         'GET logout' => 'logout',
                         'GET {id}/ban' => 'ban',
                         'POST {id}/upload' => 'upload',
