@@ -611,7 +611,7 @@
       }
     },
     "/users/login": {
-      "get": {
+      "post": {
         "tags": [
           "user"
         ],

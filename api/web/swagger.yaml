@@ -407,7 +407,7 @@ paths:
         default:
           description: "successful operation"
   /users/login:
-    get:
+    post:
       tags:
       - "user"
       summary: "Logs user into the system"
