@@ -4,6 +4,7 @@
 namespace api\modules\v1\controllers;
 
 
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
@@ -57,6 +58,19 @@ class CategoryController extends ActiveController
         ];
 
         return$behaviors;
+    }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        $actions['index']['prepareDataProvider'] = function () {
+            return new ActiveDataProvider([
+                'query' => $this->modelClass::find(),
+                'pagination' => ['pageSize' => 20,]
+            ]);
+
+        };
+        return $actions;
     }
 
 }

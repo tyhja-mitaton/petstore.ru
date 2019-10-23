@@ -3,12 +3,17 @@
 
 namespace api\modules\v1\controllers;
 
+use api\modules\v1\models\User;
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 use yii\rest\ActiveController;
 use yii\filters\Cors;
 use yii\filters\ContentNegotiator;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
+use yii\web\ForbiddenHttpException;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Class UserController
@@ -98,6 +103,39 @@ class UserController extends ActiveController
         if ($exception !== null) {
             return $this->render('error', ['exception' => $exception]);
         }
+    }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        unset($actions['create']);
+        $actions['index']['prepareDataProvider'] = function () {
+            return new ActiveDataProvider([
+                'query' => $this->modelClass::find(),
+                'pagination' => ['pageSize' => 20,]
+            ]);
+
+        };
+        return $actions;
+    }
+
+    public function actionCreate()
+    {
+        $model = new User();
+
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        $model->access_token = Yii::$app->security->generateRandomString();
+        $model->auth_key = Yii::$app->security->generateRandomString();
+        if ($model->save()) {
+            $response = Yii::$app->getResponse();
+            $response->setStatusCode(201);
+            $id = implode(',', array_values($model->getPrimaryKey(true)));
+            $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
+        } elseif (!$model->hasErrors()) {
+            throw new ServerErrorHttpException('Failed to create the object for unknown reason.');
+        }
+        return $model;
+
     }
 
 }

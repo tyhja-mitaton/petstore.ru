@@ -13,6 +13,7 @@ class Pet extends ActiveRecord
         return [
             [['nickname', 'breed', 'commentary'], 'string', 'max' => 200],
             [['category_id', 'user_id', 'price'], 'integer'],
+            [['nickname', 'breed', 'category_id', 'user_id', 'price'], 'required'],
             ['status', 'safe']
         ];
     }

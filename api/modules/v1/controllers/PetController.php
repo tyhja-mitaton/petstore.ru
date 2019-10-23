@@ -107,12 +107,26 @@ class PetController extends ActiveController
             'class' => ActiveDataProvider::class,
             'query' => $query,
             'pagination' => [
+                'pageSize' => 20,
                 'params' => $requestParams,
             ],
             'sort' => [
                 'params' => $requestParams,
             ],
         ]);
+    }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        $actions['index']['prepareDataProvider'] = function () {
+            return new ActiveDataProvider([
+                'query' => $this->modelClass::find(),
+                'pagination' => ['pageSize' => 20,]
+            ]);
+
+        };
+        return $actions;
     }
 
 }
