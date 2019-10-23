@@ -14,6 +14,10 @@ use yii\rest\ActiveController;
 class CategoryController extends ActiveController
 {
     public $modelClass = 'api\modules\v1\models\Category';
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
 
     public function behaviors()
     {

@@ -21,6 +21,10 @@ use yii\web\ServerErrorHttpException;
 class UserController extends ActiveController
 {
     public $modelClass = 'api\modules\v1\models\User';
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
 
 
     public function behaviors()

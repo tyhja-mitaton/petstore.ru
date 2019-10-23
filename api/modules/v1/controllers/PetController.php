@@ -17,6 +17,10 @@ use yii\data\ActiveDataProvider;
 class PetController extends ActiveController
 {
     public $modelClass = 'api\modules\v1\models\Pet';
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
 
     public function behaviors()
     {
