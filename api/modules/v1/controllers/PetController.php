@@ -4,6 +4,7 @@
 namespace api\modules\v1\controllers;
 
 
+use yii\base\ErrorException;
 use yii\filters\AccessControl;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
@@ -138,12 +139,16 @@ class PetController extends ActiveController
     protected function serializeData($data)
     {
         $data = parent::serializeData($data);
-        $image = Image::findOne(['pet_id' => $data['id']]);
-        $path = Url::base(true)."/uploads/{$image->path}";
-        if($image->path)
-        {
+        try {
+            $hasEnvelope = $data['items'];
+        } catch (ErrorException $e) {
+            $hasEnvelope = null;
+        }
+        $image = (!$hasEnvelope) ? Image::findOne(['pet_id' => $data['id']]) : null;
+        if ($image) {
+            $path = Url::base(true) . "/uploads/{$image->path}";
             return array_merge($data, ['image' => $path]);
-        }else{
+        } else {
             return $data;
         }
 
