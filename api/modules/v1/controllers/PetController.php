@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
 use api\modules\v1\models\UploadImage;
 use api\modules\v1\models\Image;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 
 class PetController extends ActiveController
 {
@@ -74,9 +75,10 @@ class PetController extends ActiveController
         $imageLoader->image = UploadedFile::getInstanceByName('image');
         if ($imageLoader->image != null && $imageLoader->validate())
         {
-            $imageLoader->image->saveAs("uploads/{$imageLoader->image->baseName}.{$imageLoader->image->extension}");
+            $timestamp = time();
+            $imageLoader->image->saveAs("uploads/{$imageLoader->image->baseName}_{$timestamp}.{$imageLoader->image->extension}");
             $image->pet_id = $id;
-            $image->path = "{$imageLoader->image->baseName}.{$imageLoader->image->extension}";
+            $image->path = "{$imageLoader->image->baseName}_{$timestamp}.{$imageLoader->image->extension}";
             $image->save();
             return "{$imageLoader->image->baseName}.{$imageLoader->image->extension}";
         }
@@ -131,6 +133,20 @@ class PetController extends ActiveController
 
         };
         return $actions;
+    }
+
+    protected function serializeData($data)
+    {
+        $data = parent::serializeData($data);
+        $image = Image::findOne(['pet_id' => $data['id']]);
+        $path = Url::base(true)."/uploads/{$image->path}";
+        if($image->path)
+        {
+            return array_merge($data, ['image' => $path]);
+        }else{
+            return $data;
+        }
+
     }
 
 }
