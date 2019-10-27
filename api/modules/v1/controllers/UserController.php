@@ -59,7 +59,7 @@ class UserController extends ActiveController
             ],
             [
                 'allow' => true,
-                'actions' => ['update', 'delete', 'ban'],
+                'actions' => ['delete', 'ban'],
                 'roles' => ['admin'],
             ],
             [
@@ -69,7 +69,7 @@ class UserController extends ActiveController
             ],
             [
                 'allow' => true,
-                'actions' => ['logout', 'index', 'view'],
+                'actions' => ['logout', 'index', 'view', 'update'],
                 'roles' => ['admin', 'user']
             ]
         ],
@@ -140,6 +140,17 @@ class UserController extends ActiveController
         }
         return $model;
 
+    }
+
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        if ($action === 'update')
+        {
+            if ($model->id !== \Yii::$app->user->id && !\Yii::$app->user->can('admin'))
+            {
+                throw new \yii\web\ForbiddenHttpException(sprintf('You can only %s your own profile', $action));
+            }
+        }
     }
 
 }

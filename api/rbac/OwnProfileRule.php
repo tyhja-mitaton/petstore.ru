@@ -8,6 +8,7 @@ use yii\rbac\Rule;
 
 class OwnProfileRule extends Rule
 {
+    public $name = 'isOwnProfile';
     /**
      * @param string|int $user the user ID.
      * @param Item $item the role or permission that this rule is associated width.

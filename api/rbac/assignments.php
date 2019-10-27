@@ -6,7 +6,4 @@ return [
     6 => [
         'admin',
     ],
-    10 => [
-        'banned',
-    ],
 ];

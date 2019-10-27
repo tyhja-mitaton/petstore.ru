@@ -15,10 +15,10 @@ return [
     'add-pet' => [
         'type' => 2,
     ],
-    'update-pet' => [
+    'update' => [
         'type' => 2,
     ],
-    'delete-pet' => [
+    'delete' => [
         'type' => 2,
     ],
     'set-status' => [
@@ -27,10 +27,7 @@ return [
     'change-category' => [
         'type' => 2,
     ],
-    'change-user' => [
-        'type' => 2,
-    ],
-    'ban-user' => [
+    'ban' => [
         'type' => 2,
     ],
     'guest' => [
@@ -46,7 +43,7 @@ return [
         'type' => 1,
         'children' => [
             'add-pet',
-            'delete-pet',
+            'delete',
             'set-status',
             'update-own-pet',
             'update-own-profile',
@@ -56,9 +53,8 @@ return [
         'type' => 1,
         'children' => [
             'change-category',
-            'update-pet',
-            'change-user',
-            'ban-user',
+            'update',
+            'ban',
             'user',
         ],
     ],
@@ -70,14 +66,16 @@ return [
     ],
     'update-own-pet' => [
         'type' => 2,
+        'ruleName' => 'isAuthor',
         'children' => [
-            'update-pet',
+            'update',
         ],
     ],
     'update-own-profile' => [
         'type' => 2,
+        'ruleName' => 'isOwnProfile',
         'children' => [
-            'change-user',
+            'update',
         ],
     ],
 ];

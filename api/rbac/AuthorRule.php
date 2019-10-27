@@ -8,6 +8,8 @@ use yii\rbac\Rule;
 
 class AuthorRule extends Rule
 {
+    public $name = 'isAuthor';
+
     /**
      * @param string|int $user the user ID.
      * @param Item $item the role or permission that this rule is associated width.

@@ -13,7 +13,7 @@ class RbacController extends Controller
     public function init()
     {
         $authManager = Yii::$app->authManager;
-        //$authManager->removeAll();
+        $authManager->removeAll();
 
         //create roles
         $guest  = $authManager->createRole('guest');
@@ -27,12 +27,12 @@ class RbacController extends Controller
         $error  = $authManager->createPermission('error');
         $signUp = $authManager->createPermission('sign-up');
         $addPet = $authManager->createPermission('add-pet');
-        $updatePet = $authManager->createPermission('update-pet');
-        $deletePet = $authManager->createPermission('delete-pet');
+        $update = $authManager->createPermission('update');
+        $delete = $authManager->createPermission('delete');
         $setStatus = $authManager->createPermission('set-status');
         $changeCategory = $authManager->createPermission('change-category');
-        $changeUser = $authManager->createPermission('change-user');
-        $banUser = $authManager->createPermission('ban-user');
+        //$changeUser = $authManager->createPermission('change-user');
+        $banUser = $authManager->createPermission('ban');
 
 
         //add permissions
@@ -41,11 +41,11 @@ class RbacController extends Controller
         $authManager->add($error);
         $authManager->add($signUp);
         $authManager->add($addPet);
-        $authManager->add($updatePet);
-        $authManager->add($deletePet);
+        $authManager->add($update);
+        $authManager->add($delete);
         $authManager->add($setStatus);
         $authManager->add($changeCategory);
-        $authManager->add($changeUser);
+        //$authManager->add($changeUser);
         $authManager->add($banUser);
 
         //add roles
@@ -61,12 +61,12 @@ class RbacController extends Controller
         $authManager->addChild($guest, $signUp);
         //user
         $authManager->addChild($user, $addPet);
-        $authManager->addChild($user, $deletePet);
+        $authManager->addChild($user, $delete);
         $authManager->addChild($user, $setStatus);
         //admin
         $authManager->addChild($admin, $changeCategory);
-        $authManager->addChild($admin, $updatePet);
-        $authManager->addChild($admin, $changeUser);
+        $authManager->addChild($admin, $update);
+        //$authManager->addChild($admin, $changeUser);
         $authManager->addChild($admin, $banUser);
         $authManager->addChild($admin, $user);
         //banned
@@ -77,7 +77,7 @@ class RbacController extends Controller
         $updateOwnPet = $authManager->createPermission('update-own-pet');
         $updateOwnPet->ruleName = $authorRule->name;
         $authManager->add($updateOwnPet);
-        $authManager->addChild($updateOwnPet, $updatePet);
+        $authManager->addChild($updateOwnPet, $update);
         $authManager->addChild($user, $updateOwnPet);
 
         $ownProfileRule = new OwnProfileRule();
@@ -85,7 +85,7 @@ class RbacController extends Controller
         $updateOwnProfile = $authManager->createPermission('update-own-profile');
         $updateOwnProfile->ruleName = $ownProfileRule->name;
         $authManager->add($updateOwnProfile);
-        $authManager->addChild($updateOwnProfile, $changeUser);
+        $authManager->addChild($updateOwnProfile, $update);
         $authManager->addChild($user, $updateOwnProfile);
 
         $authManager->assign($user, 1);
