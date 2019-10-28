@@ -93,17 +93,17 @@ class PetController extends ActiveController
         $modelClass = $this->modelClass;
         $query = $modelClass::find();
 
-        if ($requestParams['breed']) {
-            $query->andWhere(['breed' => $requestParams['breed']]);
+        if (\Yii::$app->request->post('breed')) {
+            $query->andWhere(['breed' => \Yii::$app->request->post('breed')]);
         }
-        if ($requestParams['category']) {
-            $query->andWhere(['category' => $requestParams['category']]);
+        if (\Yii::$app->request->post('category')) {
+            $query->andWhere(['category' => \Yii::$app->request->post('category')]);
         }
-        if ($requestParams['price']) {
-            $query->andWhere(['<=', 'price', $requestParams['price']]);
+        if (\Yii::$app->request->post('price')) {
+            $query->andWhere(['<=', 'price', \Yii::$app->request->post('price')]);
         }
-        if ($requestParams['status']) {
-            $query->andWhere(['status' => $requestParams['status']]);
+        if (\Yii::$app->request->post('status')) {
+            $query->andWhere(['status' => \Yii::$app->request->post('status')]);
         }
 
         return \Yii::createObject([

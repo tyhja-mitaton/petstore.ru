@@ -213,7 +213,7 @@ paths:
         - "write:pets"
         - "read:pets"
   /pets/search:
-    get:
+    post:
       tags:
       - "pet"
       summary: "filters pets list"

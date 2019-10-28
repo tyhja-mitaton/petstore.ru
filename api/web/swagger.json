@@ -322,7 +322,7 @@
       }
     },
     "/pets/search": {
-      "get": {
+      "post": {
         "tags": [
           "pet"
         ],

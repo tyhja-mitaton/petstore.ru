@@ -50,7 +50,7 @@ return [
                         'GET logout' => 'logout',
                         'GET {id}/ban' => 'ban',
                         'POST {id}/upload' => 'upload',
-                        'GET search' => 'search'
+                        'POST search' => 'search'
                     ],
                 ],
             ],
